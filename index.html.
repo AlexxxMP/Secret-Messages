@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Comentarios Anónimos</title>
+</head>
+<body>
+    <h1>Deja tu comentario</h1>
+    <form id="commentForm">
+        <textarea id="comment" placeholder="Escribe tu comentario aquí..."></textarea><br>
+        <button type="button" onclick="submitComment()">Enviar</button>
+    </form>
+    <script>
+        function submitComment() {
+            const comment = document.getElementById('comment').value;
+            fetch('https://formspree.io/f/your-form-id', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    comment: comment,
+userAgent: navigator.userAgent,
+                    timestamp: new Date().toISOString()
+                }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
+</body>
+</html>
